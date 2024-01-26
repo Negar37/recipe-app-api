@@ -1,0 +1,98 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "problemMatcher": [],
+    "presentation": {
+        "reveal": "always",
+        "panel": "new"
+    },
+    "type": "shell",
+    "tasks": [
+        {
+            "label": "Build",
+            "dependsOn": [
+                "Django: Webserver"
+            ],
+            // mark as the default build task so cmd/ctrl+shift+b will create them
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            // try start the task on folder open
+            "runOptions": {
+                "runOn": "folderOpen"
+            }
+        },
+        {
+            "label": "Test",
+            "dependsOn": [
+                "Django: Run tests"
+            ],
+            // mark as the default test task so cmd/ctrl+shift+b will create them
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Django: Webserver",
+            "command": "${config:python.pythonPath}",
+            "args": [
+                "manage.py",
+                "runserver",
+                "0.0.0.0:8000"
+            ],
+            "group": "none"
+        },
+        {
+            "label": "Django: Shell",
+            "command": "${config:python.pythonPath}",
+            "args": [
+                "manage.py",
+                "shell" // TODO: install and use "shell_plus"
+            ],
+            "group": "none"
+        },
+        {
+            "label": "Django: Make migrations",
+            "command": "${config:python.pythonPath}",
+            "args": [
+                "manage.py",
+                "makemigrations"
+            ],
+            "group": "none"
+        },
+        {
+            "label": "Django: Migrate",
+            "command": "${config:python.pythonPath}",
+            "args": [
+                "manage.py",
+                "migrate"
+            ],
+            "group": "none"
+        },
+        {
+            "label": "Django: Run tests",
+            "command": "${config:python.pythonPath}",
+            "args": [
+                "manage.py",
+                "test",
+                "--no-input",
+                "--parallel"
+            ],
+            "group": "test"
+        },
+        {
+            "label": "Django: install requirements",
+            "command": "pip",
+            "args": [
+                "install",
+                "-r",
+                "requirements.txt"
+            ],
+            "group": "none"
+        },
+        // use cmd/ctrl+shift+p, type 'tasks', select "Run Task" and select this task
+    ]
+}

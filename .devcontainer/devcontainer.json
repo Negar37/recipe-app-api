@@ -1,0 +1,137 @@
+{
+    // name of the devcontainer
+    "name": "Recipe",
+    // define the docker compose file to use for the devcontainer
+    "dockerComposeFile": [
+        "../docker-compose.yml"
+    ],
+    // define which services from the compose file to start and stop
+    "runServices": [
+        "app",
+        "db"
+    ],
+    // define the docker-compose service to user for the dev container
+    "service": "app",
+    // define the workspace folder our app is located in
+    "workspaceFolder": "/recipe_app_api",
+    // set the remote user to connect as
+    "remoteUser": "root",
+    // configure vscode
+    "customizations": {
+        // Configure properties specific to VS Code.
+        "vscode": {
+            "settings": {
+                // define a terminal profile
+                "terminal.integrated.profiles.linux": {
+                    "bash": {
+                        "path": "/bin/bash"
+                    }
+                },
+                // set defined terminal profile active
+                "terminal.integrated.defaultProfile.linux": "bash",
+                // language specific editor settings
+                "[python]": {
+                    "editor.rulers": [
+                        88,
+                        120
+                    ],
+                    "editor.codeActionsOnSave": {
+                        "source.organizeImports": true
+                    },
+                    "editor.defaultFormatter": "ms-python.black-formatter",
+                    "editor.formatOnSave": true
+                },
+                // don't activate the virtual environment every time as we're using the env binary
+                "python.terminal.activateEnvironment": false,
+                "python.terminal.activateEnvInCurrentTerminal": true,
+                // define formatter
+                "python.formatting.provider": "black",
+                "python.formatting.blackArgs": [
+                    "--config",
+                    "/app/pyproject.toml"
+                ],
+                // format files on save with black
+                "editor.formatOnSave": true,
+                // python environment
+                "python.pythonPath": "/home/app/venv/bin/python",
+                "python.defaultInterpreterPath": "/home/app/venv/bin/python",
+                // used for autocomplete etc
+                "python.languageServer": "Pylance",
+                // do all the linting
+                "isort.args": [
+                    "--settings-file",
+                    "/app/pyproject.toml"
+                ],
+                "isort.interpeter": [
+                    "/home/app/venv/bin/python"
+                ],
+                "python.linting.enabled": true,
+                "python.linting.pylintPath": "/home/app/venv/bin/pylint",
+                "python.linting.pylintEnabled": true,
+                "python.linting.mypyEnabled": true,
+                "python.linting.pylintArgs": [
+                    "--load-plugins",
+                    "pylint_django"
+                ],
+                "ruff.path": ["/home/app/venv/bin/ruff"],
+                "ruff.lint.args": ["--config", "/app/pyproject.toml"],
+                "ruff.interpreter": ["/home/app/venv/bin/python"],
+                "ruff.showNotifications": "always",
+                "ruff.logLevel": "error",
+                // file formatting options
+                "files.trimTrailingWhitespace": true,
+                "files.insertFinalNewline": true,
+                "files.associations": {
+                    "**/templates/*": "django-txt",
+                    "**/requirements{/**,*}.{txt,in}": "pip-requirements",
+                    "**/.env.local.dev": "properties",
+                    "**/.env.test": "properties",
+                    "**/.env.local": "properties"
+                },
+                // files to exclude from all checks
+                "files.exclude": {
+                    "**/*.pyc": true,
+                    "**/.github": false,
+                    "**/migrations/*": false
+                },
+                "python.analysis.extraPaths": [
+                    "../home/app/venv/lib/python3.9/site-packages/"
+                ],
+                "python.analysis.useImportHeuristic": true,
+                "python.analysis.autoSearchPaths": true,
+                "indentRainbow.ignoreErrorLanguages": [
+                    "python",
+                    "markdown"
+                ]
+            },
+            // list all extensions that should be installed when the container is created
+            "extensions": [
+				"ms-python.python",
+				"ms-python.vscode-pylance",
+                "ms-python.isort",
+				"njpwerner.autodocstring",
+				"KevinRose.vsc-python-indent",
+				"oderwat.indent-rainbow",
+				"aaron-bond.better-comments",
+				"visualstudioexptteam.vscodeintellicode",
+				"mtxr.sqltools",
+				"mtxr.sqltools-driver-pg",
+				"mtxr.sqltools-driver-sqlite",
+				"donjayamanne.githistory",
+				"eamodio.gitlens",
+				"GitLab.gitlab-workflow",
+				"mikestead.dotenv",
+				"mrorz.language-gettext",
+				"ovcharik.gettext-duplicate-error",
+				"HookyQR.beautify",
+				"batisteo.vscode-django",
+				"Pachwenko.django-test-runner",
+				"42crunch.vscode-openapi",
+				"streetsidesoftware.code-spell-checker",
+				"bungcip.better-toml",
+				"charliermarsh.ruff",
+				"ms-python.black-formatter"
+			]
+        }
+    }
+}
